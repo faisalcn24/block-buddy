@@ -20,7 +20,7 @@ BlockBuddy blocks distracting Android apps and makes extra screen time something
 
 <div align="center">
 
-[![Download BlockBuddy APK](https://img.shields.io/badge/Download_BlockBuddy-APK-ff9f85?style=for-the-badge&logo=android&logoColor=white)](https://github.com/faisalcn24/block-buddy/releases/latest/download/BlockBuddy.apk)
+[![Download BlockBuddy APK](https://img.shields.io/badge/Download_BlockBuddy-APK-ff9f85?style=for-the-badge&logo=android&logoColor=white)](https://raw.githubusercontent.com/faisalcn24/block-buddy/main/download/BlockBuddy.apk)
 
 **Version 1.0.0 · Android 13+**
 
