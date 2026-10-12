@@ -13,7 +13,7 @@ BlockBuddy blocks distracting Android apps and makes extra screen time something
   &nbsp;
   <img src="media/block-screen.png" alt="BlockBuddy intercepting an app after its daily limit" width="30%">
   &nbsp;
-  <img src="media/cooldown.png" alt="BlockBuddy resist-urge cooldown" width="30%">
+  <img src="media/buddies.png" alt="BlockBuddy Buddies accountability screen" width="30%">
 </div>
 
 <br>
