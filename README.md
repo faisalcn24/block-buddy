@@ -2,9 +2,9 @@
 
 # BlockBuddy 🐾
 
-**A kinder way to stop doom-scrolling.**
+**Stop doom-scrolling with limits that feel worth keeping.**
 
-BlockBuddy blocks distracting Android apps and makes extra screen time something you earn—by walking, resisting the urge, or asking an accountability buddy.
+BlockBuddy blocks distracting Android apps, then makes those limits more effective through a cat you care for, healthier ways to earn extra time, and friends who help keep you accountable.
 
 </div>
 
@@ -26,26 +26,34 @@ BlockBuddy blocks distracting Android apps and makes extra screen time something
 
 </div>
 
-## About this app
+## Break the doom-scrolling loop
 
-BlockBuddy turns app blocking into a small accountability system instead of a plain lock screen. A seven-state cat companion reacts to your choices, selected apps can be limited immediately, on a schedule, or by combined daily usage, and every successful unlock grants one shared 15-minute window.
+BlockBuddy helps interrupt compulsive app use with immediate blocking, recurring schedules, and a combined daily allowance. Instead of relying on a lock screen alone, it adds incentives and accountability that make your limits harder to dismiss.
+
+When you reach a limit, you can resist the urge and help Buddy feel better, earn a short break by walking, or ask Buddy or a paired friend to approve 15 minutes of shared access. Every option is designed to replace an impulsive tap with an intentional decision.
+
+## Why the limits are easier to keep
+
+### Take care of Buddy
+
+Buddy has seven emotional and health states that respond to your behavior. Resisting a blocked app rewards you with a happy reaction, while repeatedly pushing against your limits hurts the cat. Buddy can even act as your first accountability partner, with approval odds based on its current state.
+
+### Stay on track with friends
+
+Pair privately with a trusted friend to add human accountability. Friends can see your status, receive relevant limit alerts, and approve or deny a request for extra usage. Their answer is returned directly to you, turning the usual one-tap bypass into a deliberate decision shared with someone you trust.
 
 ## What you can do
 
-- **Set meaningful limits** — immediate blocking, recurring schedules, and a combined daily allowance.
-- **Walk to unlock** — complete a configurable step goal to earn 15 minutes.
-- **Ask a buddy** — request approval from the cat or a paired friend.
-- **Resist the urge** — leave the blocked app, celebrate with the cat, and enter a short cooldown.
+- **Block distracting apps** — stop access immediately, on a recurring schedule, or after a combined daily allowance.
+- **Care for your cat** — Buddy's state reflects how consistently you respect your limits.
+- **Lean on a friend** — pair with someone you trust and ask them to approve extra time.
+- **Resist the urge** — leave the blocked app, make Buddy happy, and reinforce the better choice.
+- **Earn a short break** — complete a walking goal or receive buddy approval for a shared 15-minute window.
 - **Understand your habits** — review seven-day usage graphs for every selected app.
-- **Stay accountable** — friends can receive activity and over-limit notifications and answer requests.
-
-## Designed around the cat
-
-The cat has seven health states, animated walking, damage feedback, custom audio, and a state-aware approval personality. Positive choices cheer it up; repeatedly opening blocked apps hurts its state.
 
 ## Privacy and permissions
 
-BlockBuddy uses Android's Accessibility service to notice when a selected app opens and Android's system Usage Access history to calculate limits. It does not run a continuous usage-tracking service. Activity is shared only with a friend you explicitly pair with.
+BlockBuddy uses Android's Accessibility service to notice when a selected app opens and Android's system Usage Access history to calculate limits. It does not run a continuous usage-tracking service. Accountability activity is shared only with a friend you explicitly pair with.
 
 The complete production source, Firebase configuration, native interception implementation, signing material, and backend deployment code remain private. A few non-sensitive Flutter samples are available in [`samples/`](samples/) for portfolio review.
 
