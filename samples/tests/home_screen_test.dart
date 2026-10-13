@@ -98,8 +98,7 @@ void main() {
     expect(find.text('Friends'), findsOneWidget);
     expect(find.text('Your pairing code'), findsNothing);
     expect(
-      find.text(
-          'Your cat is thriving • 90% chance of approving your request'),
+      find.text('Your cat is thriving • 90% chance of approving your request'),
       findsOneWidget,
     );
   });
@@ -134,6 +133,41 @@ void main() {
     await tester.tap(find.text('Ruin cat state (testing)'));
     await tester.pumpAndSettle();
     expect(invokedMethods, contains('ruinCat'));
+  });
+
+  testWidgets('a gesture starting on the home cat purrs without scrolling',
+      (tester) async {
+    final invokedCalls = <MethodCall>[];
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+      channel,
+      (call) async {
+        if (call.method != 'snapshot') invokedCalls.add(call);
+        return homeState();
+      },
+    );
+
+    await tester.pumpWidget(const BlockBuddyApp(initialRoute: '/'));
+    await tester.pumpAndSettle();
+    final scrollable = tester.state<ScrollableState>(
+      find.descendant(
+        of: find.byKey(const PageStorageKey<String>('home-tab')),
+        matching: find.byType(Scrollable),
+      ),
+    );
+    final before = scrollable.position.pixels;
+
+    await tester.drag(find.byKey(const Key('home-cat')), const Offset(0, -120));
+    await tester.pumpAndSettle();
+
+    expect(scrollable.position.pixels, before);
+    expect(
+      invokedCalls.where(
+        (call) =>
+            call.method == 'playSound' &&
+            (call.arguments as Map)['name'] == 'purr',
+      ),
+      hasLength(1),
+    );
   });
 
   testWidgets('blocking rules are locked after their daily save',

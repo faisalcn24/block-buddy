@@ -80,6 +80,7 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Mascot(
+                          key: const Key('home-cat'),
                           health: health,
                           size: 144,
                           walking: controller.walking,
