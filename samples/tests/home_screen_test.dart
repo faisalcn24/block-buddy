@@ -50,7 +50,7 @@ void main() {
 
     await tester.tap(find.text('Daily limit'));
     await tester.pumpAndSettle();
-    expect(invokedCalls.where((call) => call.method == 'setBlockingRules'),
+    expect(invokedCalls.where((call) => call.method == 'setDailyLimitRule'),
         isEmpty);
     final slider = tester.widget<Slider>(
       find.byKey(const Key('daily-limit-slider')),
@@ -59,17 +59,20 @@ void main() {
 
     await tester.drag(find.byType(ListView).first, const Offset(0, -300));
     await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key('save-blocking-rules')));
+    await tester.tap(find.byKey(const Key('save-daily-limit-rule')));
     await tester.pumpAndSettle();
     expect(
       invokedCalls.any(
         (call) =>
-            call.method == 'setBlockingRules' &&
+            call.method == 'setDailyLimitRule' &&
             (call.arguments as Map)['dailyEnabled'] == true &&
-            (call.arguments as Map)['dailyLimitMinutes'] == 60 &&
-            (call.arguments as Map)['scheduleEnabled'] == true,
+            (call.arguments as Map)['dailyLimitMinutes'] == 60,
       ),
       isTrue,
+    );
+    expect(
+      invokedCalls.where((call) => call.method == 'setScheduleRule'),
+      isEmpty,
     );
 
     await tester.tap(find.text('Blocking rules'));
@@ -170,16 +173,21 @@ void main() {
     );
   });
 
-  testWidgets('blocking rules are locked after their daily save',
+  testWidgets('daily limit and schedule have independent daily locks',
       (tester) async {
+    final invokedCalls = <MethodCall>[];
     tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
       channel,
-      (call) async => homeState({
-        'dailyLimitEnabled': true,
-        'dailyLimitMinutes': 240,
-        'rulesChangeAllowed': false,
-        'usageAvailable': true,
-      }),
+      (call) async {
+        if (call.method != 'snapshot') invokedCalls.add(call);
+        return homeState({
+          'dailyLimitEnabled': true,
+          'dailyLimitMinutes': 240,
+          'dailyRuleChangeAllowed': false,
+          'scheduleRuleChangeAllowed': true,
+          'usageAvailable': true,
+        });
+      },
     );
 
     await tester.pumpWidget(const BlockBuddyApp(initialRoute: '/'));
@@ -190,22 +198,55 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(
-      find.text('Rules saved today. You can change them again tomorrow.'),
+      find.text('Daily limit changed today. Try again tomorrow.'),
+      findsOneWidget,
+    );
+    expect(
+      find.text('You can change the schedule once per day.'),
       findsOneWidget,
     );
     final dailySwitch = tester.widget<SwitchListTile>(
       find.widgetWithText(SwitchListTile, 'Daily limit'),
     );
     expect(dailySwitch.onChanged, isNull);
+    final scheduleSwitchFinder =
+        find.widgetWithText(SwitchListTile, 'Schedule');
+    final scheduleSwitch = tester.widget<SwitchListTile>(scheduleSwitchFinder);
+    expect(scheduleSwitch.onChanged, isNotNull);
     final slider = tester.widget<Slider>(
       find.byKey(const Key('daily-limit-slider')),
     );
     expect(slider.max, 240);
     expect(slider.onChanged, isNull);
-    final save = tester.widget<FilledButton>(
-      find.byKey(const Key('save-blocking-rules')),
+    final dailySave = tester.widget<FilledButton>(
+      find.byKey(const Key('save-daily-limit-rule')),
     );
-    expect(save.onPressed, isNull);
+    expect(dailySave.onPressed, isNull);
+
+    await tester.ensureVisible(scheduleSwitchFinder);
+    await tester.pumpAndSettle();
+    await tester.tap(scheduleSwitchFinder);
+    await tester.pump();
+    await tester.ensureVisible(find.byKey(const Key('save-schedule-rule')));
+    await tester.pumpAndSettle();
+    final scheduleSave = tester.widget<FilledButton>(
+      find.byKey(const Key('save-schedule-rule')),
+    );
+    expect(scheduleSave.onPressed, isNotNull);
+    await tester.tap(find.byKey(const Key('save-schedule-rule')));
+    await tester.pumpAndSettle();
+    expect(
+      invokedCalls.any(
+        (call) =>
+            call.method == 'setScheduleRule' &&
+            (call.arguments as Map)['scheduleEnabled'] == true,
+      ),
+      isTrue,
+    );
+    expect(
+      invokedCalls.where((call) => call.method == 'setDailyLimitRule'),
+      isEmpty,
+    );
   });
 
   testWidgets('daily limit shows combined blocked-app usage on Home',

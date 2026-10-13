@@ -22,7 +22,7 @@ BlockBuddy blocks distracting Android apps, then makes those limits more effecti
 
 [![Download BlockBuddy APK](https://img.shields.io/badge/Download_BlockBuddy-APK-ff9f85?style=for-the-badge&logo=android&logoColor=white)](https://raw.githubusercontent.com/faisalcn24/block-buddy/main/download/BlockBuddy.apk)
 
-**Version 1.0.0 · Android 13+**
+**Version 1.0.1 · Android 13+**
 
 </div>
 
@@ -73,7 +73,7 @@ The complete production source, Firebase configuration, native interception impl
 
 The APK is signed with BlockBuddy's dedicated release certificate.
 
-**SHA-256:** `7CD379CCBE40F6AD51CE6CD9591DB722284B3D6C2EB2C9C1962101B752BA19FC`
+**SHA-256:** `83271E7BB6821F3B55938E32528601F68D23E0FC3D5BD52BDBB5FEBC9EA1E968`
 
 ## Portfolio note
 
